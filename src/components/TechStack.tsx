@@ -46,14 +46,14 @@ export default function TechStack() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' }
+      transition: { duration: 0.4, ease: 'easeOut' as const }
     }
   };
 
   return (
     <section id="tech-stack" className="py-24 md:py-32 bg-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
-        <SectionHeading title="Tools & Technologies" />
+        <SectionHeading>Tools & Technologies</SectionHeading>
         
         <motion.div
           initial="hidden"
