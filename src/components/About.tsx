@@ -41,9 +41,9 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 mt-16">
           {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true, margin: '-50px' }}
             className="flex flex-col justify-center"
           >
@@ -83,8 +83,8 @@ export default function About() {
               <motion.div
                 key={item.key}
                 variants={{
-                  hidden: { opacity: 0, y: 30, scale: 0.9, filter: 'blur(10px)' },
-                  visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+                  hidden: { opacity: 0, y: 25, scale: 0.95 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
                 }}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-6 text-center hover:border-red-600/30 dark:hover:border-red-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-red-600/10 hover:-translate-y-2"
               >

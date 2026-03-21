@@ -12,9 +12,9 @@ export default function CTA() {
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 40, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, scale: 0.97, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true, margin: '-50px' }}
           className="max-w-3xl mx-auto text-center"
         >
@@ -27,9 +27,9 @@ export default function CTA() {
           </p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true, margin: '-50px' }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap"
           >

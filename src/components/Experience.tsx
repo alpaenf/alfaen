@@ -40,8 +40,8 @@ const ExperienceList = ({ title, items }: { title: string, items: typeof experie
       {items.map((item, index) => (
         <motion.div 
           key={index}
-          initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.7, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="relative pl-10 group"

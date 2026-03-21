@@ -10,6 +10,9 @@ export const translations = {
     hero: {
       greeting: "Hello, I'm",
       role: "Frontend Developer",
+      roleFrontend: "Frontend Developer",
+      roleBackend: "Backend Developer",
+      roleFullstack: "Fullstack Developer",
       description: "I craft beautiful, responsive, and high-performance web experiences. Passionate about clean code, modern UI design, and delivering seamless digital products that users love.",
       startProject: "Start a Project",
       viewWork: "View My Work",
@@ -74,6 +77,9 @@ export const translations = {
     hero: {
       greeting: "Halo, Saya",
       role: "Frontend Developer",
+      roleFrontend: "Frontend Developer",
+      roleBackend: "Backend Developer",
+      roleFullstack: "Fullstack Developer",
       description: "Saya merancang dan membangun antarmuka website yang responsif, cepat, dan berkualitas tinggi. Fokus pada kode yang bersih, desain UI modern, dan pengalaman digital yang memuaskan pengguna.",
       startProject: "Mulai Proyek",
       viewWork: "Lihat Karya",

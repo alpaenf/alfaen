@@ -97,7 +97,7 @@ export default function Projects() {
               layoutId={`card-${project.title}`}
               onClick={() => setSelectedProject(project)}
               key={project.title}
-              initial={{ opacity: 0, y: 40, scale: 0.96 }}
+              initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}

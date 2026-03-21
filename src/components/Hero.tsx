@@ -1,13 +1,29 @@
 'use client';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import ArrowRight from './icons/ArrowRight';
-import Mail from './icons/Mail';
 import GithubStats from './GithubStats';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function Hero() {
   const { t } = useLanguage();
+
+  const roles = [
+    { label: t('hero.roleFrontend'), color: 'text-red-600 dark:text-red-400' },
+    { label: t('hero.roleBackend'),  color: 'text-blue-600 dark:text-blue-400' },
+    { label: t('hero.roleFullstack'), color: 'text-emerald-600 dark:text-emerald-400' },
+  ];
+
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRoleIndex(prev => (prev + 1) % roles.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <section id="hero" className="min-h-screen flex items-center pt-28 pb-12 overflow-hidden relative">
       <div className="absolute inset-0 z-0 bg-grid-slate-100/[0.04] dark:bg-grid-slate-900/[0.04] bg-[size:40px_40px]"></div>
@@ -41,14 +57,21 @@ export default function Hero() {
               Mukhammad <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">Alfaen</span>
             </motion.h1>
             
-            <motion.h2 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.3, ease: 'easeOut' }}
-              className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium mb-3"
-            >
-              {t('hero.role')}
-            </motion.h2>
+            {/* Animated Role */}
+            <div className="flex items-center gap-2 mb-3 h-9 overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.h2
+                  key={roleIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, ease: 'easeInOut' }}
+                  className={`text-xl md:text-2xl font-semibold ${roles[roleIndex].color}`}
+                >
+                  {roles[roleIndex].label}
+                </motion.h2>
+              </AnimatePresence>
+            </div>
             
             <motion.p 
               initial={{ opacity: 0, y: 10 }}
