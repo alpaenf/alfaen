@@ -35,8 +35,6 @@ export default function RootLayout({
             <ScrollProgress />
             <CustomCursor />
             {children}
-            <ThemeToggle />
-            <LanguageToggle />
             <TerminalMode />
           </ThemeProvider>
         </LanguageProvider>
