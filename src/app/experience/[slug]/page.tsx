@@ -125,7 +125,7 @@ export default async function ExperienceDetailPage({ params }: Props) {
                 ))}
               </div>
             ) : (
-              <div className="h-64 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+              <div className="h-64 p-6 text-center rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
                 <Users className="w-12 h-12 mb-3 opacity-20" />
                 <p>Belum ada foto dokumentasi untuk pengalaman ini.</p>
               </div>

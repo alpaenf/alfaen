@@ -63,16 +63,16 @@ export default function Experience() {
             ))}
           </div>
 
-          {/* ── Mobile Timeline Select (Dropdown / Horizontal Scroll) ── */}
-          <div className="flex md:hidden gap-2.5 overflow-x-auto snap-x pb-4 scrollbar-none mb-2 -mx-6 px-6">
+          {/* ── Mobile Timeline Select (Stacked Vertically) ── */}
+          <div className="flex flex-col md:hidden gap-3 mb-8">
             {experiences.slice(0, 4).map((item, i) => (
               <button
                 key={item.slug}
                 onClick={() => setActiveExp(i)}
-                className={`flex-shrink-0 snap-start px-4 py-2 rounded-full border text-sm font-semibold transition-all shadow-sm ${
+                className={`w-full text-center sm:text-left px-5 py-3.5 rounded-2xl border text-sm font-semibold transition-all shadow-sm ${
                   activeExp === i 
                     ? `border-transparent text-white bg-gradient-to-r ${item.accent}`
-                    : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700'
                 }`}
               >
                 {item.company}
