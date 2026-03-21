@@ -64,6 +64,9 @@ export const translations = {
       desc: "I'm currently looking for new opportunities. Whether you have a question, a project idea, or just want to say hi, feel free to drop a message!",
       email: "Email Me",
       whatsapp: "WhatsApp"
+    },
+    certificates: {
+      title: "Certificates"
     }
   },
   id: {
@@ -131,6 +134,9 @@ export const translations = {
       desc: "Saat ini saya sedang mencari peluang tim kolaborasi baru. Baik kamu punya pertanyaan, atau sekadar ingin menyapa, sampaikan saja pesanmu!",
       email: "Email Saya",
       whatsapp: "WhatsApp"
+    },
+    certificates: {
+      title: "Sertifikat"
     }
   }
 };

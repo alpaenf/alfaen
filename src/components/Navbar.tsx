@@ -13,10 +13,10 @@ const Logo = ({ scrolled, theme }: { scrolled: boolean, theme?: string }) => {
 
   return (
     <a href="#hero" className="flex items-center gap-0.5 font-bold tracking-tight text-lg">
-      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultBg }} transition={{ duration: 0.3 }}>M</motion.span>
-      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultRed }} transition={{ duration: 0.3 }}>A</motion.span>
-      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultBg }} transition={{ duration: 0.3 }}>F</motion.span>
-      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultRed }} transition={{ duration: 0.3 }}>.</motion.span>
+      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultBg }}  transition={{ duration: 0.3 }}>M</motion.span>
+      <motion.span animate={{ color: scrolled ? '#111827' : defaultRed }} transition={{ duration: 0.3 }}>A</motion.span>
+      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultBg }}  transition={{ duration: 0.3 }}>F</motion.span>
+      <motion.span animate={{ color: scrolled ? '#111827' : defaultRed }} transition={{ duration: 0.3 }}>.</motion.span>
     </a>
   );
 };

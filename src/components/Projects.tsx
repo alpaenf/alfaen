@@ -120,6 +120,7 @@ export default function Projects() {
                     src={project.image}
                     alt={project.title}
                     fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -196,6 +197,7 @@ export default function Projects() {
                     src={selectedProject.image}
                     alt={selectedProject.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 672px"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">

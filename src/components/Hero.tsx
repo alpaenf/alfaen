@@ -174,6 +174,7 @@ export default function Hero() {
                   src="/saya.png" 
                   alt="Mukhammad Alfaen Fadillah"
                   fill
+                  sizes="(max-width: 768px) 288px, (max-width: 1024px) 320px, 350px"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   priority
                 />
