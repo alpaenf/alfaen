@@ -2,6 +2,7 @@ export const translations = {
   en: {
     nav: {
       about: "About",
+      services: "Services",
       experience: "Experience",
       skills: "Skills",
       projects: "Projects",
@@ -67,11 +68,15 @@ export const translations = {
     },
     certificates: {
       title: "Certificates"
+    },
+    services: {
+      title: "My Services"
     }
   },
   id: {
     nav: {
       about: "Tentang",
+      services: "Layanan",
       experience: "Pengalaman",
       skills: "Keahlian",
       projects: "Proyek",
@@ -137,6 +142,9 @@ export const translations = {
     },
     certificates: {
       title: "Sertifikat"
+    },
+    services: {
+      title: "Layanan Saya"
     }
   }
 };
