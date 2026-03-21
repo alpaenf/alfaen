@@ -6,6 +6,7 @@ import Github from './icons/Github';
 import SectionHeading from './SectionHeading';
 import { X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -13,9 +14,10 @@ const projects = [
     description: 'Modern movie & TV show discovery platform with interactive UI, real-time data fetching, and seamless user experience.',
     longDescription: 'Filzy is a comprehensive movie and TV show discovery application. Built to solve the problem of overwhelming choices, it offers a clean, distraction-free interface to find what you want to watch next. The biggest challenge was optimizing the rendering of long lists of high-quality images and handling complex API states smoothly.',
     tech: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
-    demoLink: '#',
+    demoLink: 'https://filzy.vercel.app/#tools',
     repoLink: '#',
-    color: 'from-violet-500 to-purple-600',
+    accent: 'from-violet-500 to-purple-600',
+    image: '/projects/filzy.png',
   },
   {
     title: 'FadCV',
@@ -24,7 +26,8 @@ const projects = [
     tech: ['React', 'Tailwind CSS', 'Vite'],
     demoLink: '#',
     repoLink: '#',
-    color: 'from-cyan-500 to-blue-500',
+    accent: 'from-cyan-500 to-blue-500',
+    image: null,
   },
   {
     title: 'Project Alpha',
@@ -33,7 +36,8 @@ const projects = [
     tech: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
     demoLink: '#',
     repoLink: '#',
-    color: 'from-emerald-400 to-teal-500',
+    accent: 'from-emerald-400 to-teal-500',
+    image: null,
   },
   {
     title: 'ShopFlow',
@@ -42,43 +46,48 @@ const projects = [
     tech: ['Laravel', 'Inertia.js', 'Vue.js', 'MySQL'],
     demoLink: '#',
     repoLink: '#',
-    color: 'from-orange-400 to-red-500',
+    accent: 'from-orange-400 to-red-500',
+    image: null,
   },
   {
     title: 'TaskBoard',
     description: 'Kanban-style project management app with drag-and-drop, real-time collaboration, and team workspaces.',
-    longDescription: 'TaskBoard brings real-time collaborative project management to teams of all sizes. Powered by WebSockets, changes sync instantly across all users. Features include drag-and-drop cards, labels, due dates, file attachments, and detailed activity logs.',
+    longDescription: 'TaskBoard brings real-time collaborative project management to teams of all sizes. Powered by WebSockets, changes sync instantly across all users. Features drag-and-drop cards, labels, due dates, file attachments, and detailed activity logs.',
     tech: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
     demoLink: '#',
     repoLink: '#',
-    color: 'from-pink-500 to-rose-500',
+    accent: 'from-pink-500 to-rose-500',
+    image: null,
   },
   {
     title: 'WeatherNow',
     description: 'Elegant weather forecast application with location detection, hourly and 7-day forecasts, and beautiful animations.',
-    longDescription: 'WeatherNow delivers a premium weather experience with beautiful animated backgrounds that reflect actual weather conditions. Features GPS-based location detection, hourly and weekly forecasts, air quality index, and UV radiation data from OpenWeatherMap API.',
+    longDescription: 'WeatherNow delivers a premium weather experience with beautiful animated backgrounds that reflect actual weather conditions. Features GPS-based location detection, hourly and weekly forecasts, air quality index, and UV data.',
     tech: ['React', 'TypeScript', 'Tailwind CSS', 'OpenWeather API'],
     demoLink: '#',
     repoLink: '#',
-    color: 'from-sky-400 to-indigo-500',
+    accent: 'from-sky-400 to-indigo-500',
+    image: null,
   },
   {
     title: 'BlogStudio',
     description: 'Headless CMS-powered blog platform with markdown support, SEO optimization, and lightning-fast performance.',
-    longDescription: 'BlogStudio is a static-site-generated blog platform built for developers and content creators. It features a clean markdown editor, automatic SEO meta generation, sitemap and RSS feed generation, and perfect Lighthouse scores out of the box.',
+    longDescription: 'BlogStudio is a static-site-generated blog platform built for developers and content creators. It features a clean markdown editor, automatic SEO meta generation, sitemap and RSS feed generation, and perfect Lighthouse scores.',
     tech: ['Next.js', 'MDX', 'Contentlayer', 'Vercel'],
     demoLink: '#',
     repoLink: '#',
-    color: 'from-yellow-400 to-orange-500',
+    accent: 'from-yellow-400 to-orange-500',
+    image: null,
   },
   {
     title: 'ChatAI',
     description: 'AI-powered chat interface with streaming responses, multi-model support, and conversation history management.',
-    longDescription: 'ChatAI is an elegant frontend for interacting with large language models. It supports multiple AI providers, streaming response display for a natural typing feel, persistent conversation history with local storage, and a clean markdown renderer for code blocks and formatted text.',
+    longDescription: 'ChatAI is an elegant frontend for interacting with large language models. It supports multiple AI providers, streaming response display for a natural typing feel, persistent conversation history, and a clean markdown renderer.',
     tech: ['Next.js', 'OpenAI API', 'Supabase', 'Tailwind CSS'],
     demoLink: '#',
     repoLink: '#',
-    color: 'from-green-400 to-emerald-500',
+    accent: 'from-green-400 to-emerald-500',
+    image: null,
   },
 ];
 
@@ -104,12 +113,25 @@ export default function Projects() {
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
               className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:shadow-slate-200/60 dark:hover:shadow-slate-900/60 transition-shadow duration-300 group cursor-pointer overflow-hidden flex flex-col"
             >
-              {/* Gradient Banner */}
-              <div className={`h-28 bg-gradient-to-br ${project.color} opacity-90 flex items-center justify-center flex-shrink-0`}>
-                <span className="text-white/30 text-4xl font-black tracking-tighter select-none">
-                  {project.title.slice(0, 2).toUpperCase()}
-                </span>
-              </div>
+              {/* Banner: image if available, else accent initials */}
+              {project.image ? (
+                <div className="relative h-36 flex-shrink-0 overflow-hidden bg-slate-100 dark:bg-slate-900">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                </div>
+              ) : (
+                <div className="relative h-24 bg-slate-100 dark:bg-slate-900 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${project.accent}`} />
+                  <span className="text-5xl font-black text-slate-300 dark:text-slate-700 select-none tracking-tighter">
+                    {project.title.slice(0, 2).toUpperCase()}
+                  </span>
+                </div>
+              )}
 
               <div className="p-5 flex flex-col flex-1">
                 <motion.h3 layoutId={`title-${project.title}`} className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-1.5 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors duration-200">
@@ -168,11 +190,29 @@ export default function Projects() {
               </button>
 
               {/* Modal Banner */}
-              <div className={`h-40 bg-gradient-to-br ${selectedProject.color} flex items-center justify-center flex-shrink-0`}>
-                <motion.h3 layoutId={`title-${selectedProject.title}`} className="text-4xl font-black text-white drop-shadow-lg">
-                  {selectedProject.title}
-                </motion.h3>
-              </div>
+              {selectedProject.image ? (
+                <div className="relative h-48 flex-shrink-0 overflow-hidden bg-slate-100 dark:bg-slate-900">
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
+                    <motion.h3 layoutId={`title-${selectedProject.title}`} className="text-3xl font-bold text-white drop-shadow">
+                      {selectedProject.title}
+                    </motion.h3>
+                  </div>
+                </div>
+              ) : (
+                <div className="relative h-36 bg-slate-100 dark:bg-slate-900 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${selectedProject.accent}`} />
+                  <motion.h3 layoutId={`title-${selectedProject.title}`} className="text-5xl font-black text-slate-300 dark:text-slate-700 select-none tracking-tighter">
+                    {selectedProject.title.slice(0, 2).toUpperCase()}
+                  </motion.h3>
+                  <span className="absolute bottom-3 text-xl font-bold text-slate-700 dark:text-slate-300">{selectedProject.title}</span>
+                </div>
+              )}
 
               <div className="p-6 md:p-8 flex-1">
                 <div className="flex flex-wrap gap-2 mb-6">
