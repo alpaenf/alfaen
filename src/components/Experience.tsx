@@ -64,15 +64,15 @@ export default function Experience() {
           </div>
 
           {/* ── Mobile Timeline Select (Dropdown / Horizontal Scroll) ── */}
-          <div className="flex md:hidden gap-3 overflow-x-auto snap-x pb-4 scrollbar-none mb-4 -mx-6 px-6">
+          <div className="flex md:hidden gap-2.5 overflow-x-auto snap-x pb-4 scrollbar-none mb-2 -mx-6 px-6">
             {experiences.slice(0, 4).map((item, i) => (
               <button
                 key={item.slug}
                 onClick={() => setActiveExp(i)}
-                className={`flex-shrink-0 snap-start px-5 py-3 rounded-xl border text-sm font-semibold transition-all ${
+                className={`flex-shrink-0 snap-start px-4 py-2 rounded-full border text-sm font-semibold transition-all shadow-sm ${
                   activeExp === i 
                     ? `border-transparent text-white bg-gradient-to-r ${item.accent}`
-                    : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800'
                 }`}
               >
                 {item.company}
@@ -85,31 +85,31 @@ export default function Experience() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeExp}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-10 border border-slate-100 dark:border-slate-700/50 shadow-xl shadow-slate-200/20 dark:shadow-none relative overflow-hidden"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-8 md:p-10 border border-slate-100 dark:border-slate-700/50 shadow-xl shadow-slate-200/20 dark:shadow-none relative overflow-hidden"
               >
                 {/* Decorative background blur */}
-                <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${exp.accent} blur-[100px] opacity-10 rounded-full translate-x-1/2 -translate-y-1/2`} />
+                <div className={`absolute top-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-gradient-to-br ${exp.accent} blur-[80px] opacity-10 rounded-full translate-x-1/2 -translate-y-1/2`} />
 
                 <div className="relative z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 mb-6">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 mb-4 sm:mb-6">
                     <Briefcase className="w-3 h-3" />
                     {exp.type === 'work' ? 'Pengalaman Kerja' : 'Organisasi'}
                   </span>
 
-                  <h3 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight mb-2 tracking-tight">
+                  <h3 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white leading-tight mb-2 tracking-tight">
                     {exp.role}
                   </h3>
                   
-                  <div className="flex flex-wrap items-center gap-3 mb-8">
-                     <p className="text-base sm:text-lg font-semibold text-slate-600 dark:text-slate-300">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                     <p className="text-sm sm:text-lg font-semibold text-slate-600 dark:text-slate-300">
                       @ {exp.company}
                     </p>
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 hidden sm:block" />
-                    <span className="text-sm font-medium text-slate-500 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1 rounded-full">
+                    <span className="text-xs sm:text-sm font-medium text-slate-500 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-full inline-block w-max">
                       {exp.period}
                     </span>
                   </div>
@@ -129,14 +129,14 @@ export default function Experience() {
                   {exp.photos.length > 0 && (
                      <div className="mb-10">
                        <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Dokumentasi</p>
-                       <div className="flex gap-3 overflow-hidden">
+                       <div className="flex gap-3 overflow-x-auto snap-x scrollbar-none pb-2 -mx-5 px-5 sm:mx-0 sm:px-0 sm:overflow-hidden">
                          {exp.photos.slice(0, 3).map((photo, j) => (
-                           <div key={j} className="relative w-24 h-16 sm:w-32 sm:h-20 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 flex-shrink-0 shadow-sm">
+                           <div key={j} className="relative w-[120px] h-[80px] sm:w-32 sm:h-20 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 flex-shrink-0 shadow-sm snap-start">
                              <Image src={photo} alt={`Preview ${j}`} fill sizes="128px" className="object-cover opacity-80" />
                            </div>
                          ))}
                          {exp.photos.length > 3 && (
-                           <div className="relative w-24 h-16 sm:w-32 sm:h-20 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 flex items-center justify-center flex-shrink-0">
+                           <div className="relative w-[120px] h-[80px] sm:w-32 sm:h-20 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 flex items-center justify-center flex-shrink-0 snap-start">
                              <span className="text-sm font-bold text-slate-500">+{exp.photos.length - 3}</span>
                            </div>
                          )}
