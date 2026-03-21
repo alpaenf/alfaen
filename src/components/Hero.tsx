@@ -58,7 +58,7 @@ export default function Hero() {
             </motion.h1>
             
             {/* Animated Role */}
-            <div className="flex items-center gap-2 mb-3 h-9 overflow-hidden">
+            <div className="flex items-center justify-center lg:justify-start gap-2 mb-3 h-8 overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.h2
                   key={roleIndex}
@@ -66,7 +66,7 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className={`text-xl md:text-2xl font-semibold ${roles[roleIndex].color}`}
+                  className={`text-lg md:text-2xl font-semibold ${roles[roleIndex].color}`}
                 >
                   {roles[roleIndex].label}
                 </motion.h2>
@@ -86,19 +86,19 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.4, ease: 'easeOut' }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10 w-full"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 w-full"
             >
               <a 
                 href="#contact" 
-                className="group flex-1 sm:flex-none flex items-center justify-center gap-2 bg-red-600 text-white px-7 py-3.5 rounded-full font-medium transition-all duration-300 hover:bg-red-700 hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 active:scale-95"
+                className="group flex-1 sm:flex-none flex items-center justify-center gap-2 bg-red-600 text-white px-5 py-2.5 sm:px-7 sm:py-3.5 rounded-full text-sm sm:text-base font-medium transition-all duration-300 hover:bg-red-700 hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 active:scale-95"
               >
                 {t('hero.startProject')}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </a>
               
               <a 
                 href="#projects" 
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-7 py-3.5 rounded-full font-medium transition-all duration-300 hover:border-red-600 hover:text-red-600 dark:hover:border-red-500 dark:hover:text-red-500 hover:scale-105 active:scale-95"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-5 py-2.5 sm:px-7 sm:py-3.5 rounded-full text-sm sm:text-base font-medium transition-all duration-300 hover:border-red-600 hover:text-red-600 dark:hover:border-red-500 dark:hover:text-red-500 hover:scale-105 active:scale-95"
               >
                 {t('hero.viewWork')}
               </a>
