@@ -9,7 +9,7 @@ import { useLanguage } from '../context/LanguageContext';
 export default function Hero() {
   const { t } = useLanguage();
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-24 pb-12 overflow-hidden relative">
+    <section id="hero" className="min-h-screen flex items-center pt-28 pb-12 overflow-hidden relative">
       <div className="absolute inset-0 z-0 bg-grid-slate-100/[0.04] dark:bg-grid-slate-900/[0.04] bg-[size:40px_40px]"></div>
       
       <div className="container mx-auto px-6 md:px-12 relative z-10">
@@ -36,7 +36,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.2, ease: 'easeOut' }}
-              className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-tight"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight leading-[1.1] pb-2"
             >
               Mukhammad <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">Alfaen</span>
             </motion.h1>
@@ -45,7 +45,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.3, ease: 'easeOut' }}
-              className="text-2xl md:text-3xl text-slate-600 dark:text-slate-300 font-medium mb-8"
+              className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium mb-3"
             >
               {t('hero.role')}
             </motion.h2>
@@ -54,7 +54,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.3, ease: 'easeOut' }}
-              className="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-xl font-light leading-relaxed"
+              className="text-base text-slate-600 dark:text-slate-400 mb-7 max-w-lg font-light leading-relaxed"
             >
               {t('hero.description')}
             </motion.p>
@@ -63,11 +63,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.4, ease: 'easeOut' }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto mb-10"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10 w-full"
             >
               <a 
                 href="#contact" 
-                className="group flex-1 sm:flex-none flex items-center justify-center gap-2 bg-red-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:bg-red-700 hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 active:scale-95"
+                className="group flex-1 sm:flex-none flex items-center justify-center gap-2 bg-red-600 text-white px-7 py-3.5 rounded-full font-medium transition-all duration-300 hover:bg-red-700 hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 active:scale-95"
               >
                 {t('hero.startProject')}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -75,19 +75,16 @@ export default function Hero() {
               
               <a 
                 href="#projects" 
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:border-red-600 hover:text-red-600 dark:hover:border-red-500 dark:hover:text-red-500 hover:scale-105 active:scale-95"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-7 py-3.5 rounded-full font-medium transition-all duration-300 hover:border-red-600 hover:text-red-600 dark:hover:border-red-500 dark:hover:text-red-500 hover:scale-105 active:scale-95"
               >
                 {t('hero.viewWork')}
               </a>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.5, ease: 'easeOut' }}
-              className="flex justify-center lg:justify-start"
-            >
-              <GithubStats />
+              <div className="hidden xl:block w-px h-10 bg-slate-200 dark:bg-slate-700 mx-2"></div>
+
+              <div className="w-full sm:w-auto flex justify-center mt-2 sm:mt-0">
+                <GithubStats />
+              </div>
             </motion.div>
           </motion.div>
           
@@ -162,8 +159,8 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               
-              {/* Decorative shapes behind */}
-              <div className="absolute -inset-4 md:-inset-6 border border-slate-200 dark:border-slate-700/50 rounded-[3rem] md:rounded-[3.5rem] -z-10 rotate-3 transition-transform duration-500 group-hover:rotate-6"></div>
+              {/* Default Border Ring (Clean!) */}
+              <div className="absolute -inset-2 md:-inset-3 border border-slate-200 dark:border-slate-700/80 rounded-[2.8rem] md:rounded-[3.3rem] -z-10 opacity-70"></div>
             </div>
           </motion.div>
           

@@ -45,37 +45,33 @@ export default function GithubStats() {
   }, [username]);
 
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm p-6 shadow-sm">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">
-          <GitBranch className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+    <a 
+      href={`https://github.com/${username}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-4 bg-white dark:bg-slate-800/80 backdrop-blur-md px-5 py-3 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 hover:border-slate-300 dark:hover:border-slate-600 group"
+    >
+      <div className="flex items-center gap-2">
+        <div className="p-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-full group-hover:bg-slate-200 dark:group-hover:bg-slate-700 transition-colors">
+          <GitBranch className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300" />
         </div>
-        <div>
-          <h3 className="font-semibold text-slate-800 dark:text-slate-100">Live GitHub Stats</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">@{username}</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-          <div className="flex items-center gap-2 mb-1">
-            <GitCommit className="w-4 h-4 text-emerald-500" />
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Repos</span>
-          </div>
-          <p className="text-2xl font-bold text-slate-800 dark:text-slate-100">
-            {loading ? "..." : data?.public_repos || "0"}
-          </p>
-        </div>
-        <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-          <div className="flex items-center gap-2 mb-1">
-            <Users className="w-4 h-4 text-blue-500" />
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Followers</span>
-          </div>
-          <p className="text-2xl font-bold text-slate-800 dark:text-slate-100">
-            {loading ? "..." : data?.followers || "0"}
-          </p>
+        <div className="flex flex-col">
+          <span className="text-[10px] text-slate-500 font-medium leading-none uppercase tracking-wider mb-0.5">Repos</span>
+          <span className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-none">{loading ? '...' : data?.public_repos || 0}</span>
         </div>
       </div>
-    </div>
+      
+      <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+      
+      <div className="flex items-center gap-2">
+        <div className="p-1.5 bg-blue-50 dark:bg-blue-500/10 rounded-full group-hover:bg-blue-100 dark:group-hover:bg-blue-500/20 transition-colors">
+          <Users className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-[10px] text-slate-500 font-medium leading-none uppercase tracking-wider mb-0.5">Followers</span>
+          <span className="text-sm font-bold text-slate-800 dark:text-slate-100 leading-none">{loading ? '...' : data?.followers || 0}</span>
+        </div>
+      </div>
+    </a>
   );
 }

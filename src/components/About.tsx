@@ -1,16 +1,36 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import SectionHeading from './SectionHeading';
 import { useLanguage } from '../context/LanguageContext';
+
+function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionValue = useMotionValue(0);
+  const spring = useSpring(motionValue, { damping: 50, stiffness: 150 });
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  useEffect(() => {
+    if (isInView) motionValue.set(target);
+  }, [isInView, target, motionValue]);
+
+  useEffect(() => {
+    return spring.on('change', (v) => {
+      if (ref.current) ref.current.textContent = Math.round(v) + suffix;
+    });
+  }, [spring, suffix]);
+
+  return <span ref={ref}>0{suffix}</span>;
+}
 
 export default function About() {
   const { t } = useLanguage();
 
   const highlights = [
-    { label: t('about.stats.projects'), value: '15+' },
-    { label: t('about.stats.years'), value: '2+' },
-    { label: t('about.stats.clients'), value: '10+' },
-    { label: t('about.stats.tech'), value: '20+' }
+    { key: 'projects', label: t('about.stats.projects'), value: 15, suffix: '+' },
+    { key: 'years',    label: t('about.stats.years'),    value: 2,  suffix: '+' },
+    { key: 'clients',  label: t('about.stats.clients'),  value: 10, suffix: '+' },
+    { key: 'tech',     label: t('about.stats.tech'),     value: 20, suffix: '+' },
   ];
 
   return (
@@ -51,19 +71,17 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Stats Grid */}
+          {/* Stats Grid — key is stable (doesn't change with lang) */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
-            variants={{
-              visible: { transition: { staggerChildren: 0.15 } }
-            }}
+            variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
             className="grid grid-cols-2 gap-6"
           >
-            {highlights.map((item, index) => (
+            {highlights.map((item) => (
               <motion.div
-                key={item.label}
+                key={item.key}
                 variants={{
                   hidden: { opacity: 0, y: 30, scale: 0.9, filter: 'blur(10px)' },
                   visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
@@ -71,7 +89,7 @@ export default function About() {
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-6 text-center hover:border-red-600/30 dark:hover:border-red-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-red-600/10 hover:-translate-y-2"
               >
                 <div className="text-3xl md:text-4xl font-bold text-red-600 dark:text-red-500 mb-2">
-                  {item.value}
+                  <AnimatedCounter target={item.value} suffix={item.suffix} />
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">{item.label}</p>
               </motion.div>
