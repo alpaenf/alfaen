@@ -1,254 +1,138 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import ExternalLink from './icons/ExternalLink';
-import Github from './icons/Github';
-import SectionHeading from './SectionHeading';
-import { X } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Link from 'next/link';
 import Image from 'next/image';
-
-const projects = [
-  {
-    title: 'Filzy',
-    description: 'Modern movie & TV show discovery platform with interactive UI, real-time data fetching, and seamless user experience.',
-    longDescription: 'Filzy is a comprehensive movie and TV show discovery application. Built to solve the problem of overwhelming choices, it offers a clean, distraction-free interface to find what you want to watch next. The biggest challenge was optimizing the rendering of long lists of high-quality images and handling complex API states smoothly.',
-    tech: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
-    demoLink: 'https://filzy.vercel.app/#tools',
-    repoLink: '#',
-    accent: 'from-violet-500 to-purple-600',
-    image: '/projects/filzy.png',
-  },
-  {
-    title: 'FadCV',
-    description: 'Professional CV builder tool that allows users to create, customize, and download beautiful resumes easily.',
-    longDescription: 'FadCV aims to simplify the resume creation process. Users often struggle with formatting and ATS compatibility. By providing real-time preview and export to PDF functionality using client-side rendering, FadCV ensures privacy and speed.',
-    tech: ['React', 'Tailwind CSS', 'Vite'],
-    demoLink: '#',
-    repoLink: '#',
-    accent: 'from-cyan-500 to-blue-500',
-    image: null,
-  },
-  {
-    title: 'Project Alpha',
-    description: 'A modern web application template with authentication, dashboard, and data visualization built for rapid development.',
-    longDescription: 'Project Alpha is a production-ready starter template designed to accelerate web development. It includes an authentication system, role-based access, a comprehensive dashboard with charts, and a clean component library.',
-    tech: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
-    demoLink: '#',
-    repoLink: '#',
-    accent: 'from-emerald-400 to-teal-500',
-    image: null,
-  },
-  {
-    title: 'ShopFlow',
-    description: 'Full-featured e-commerce platform with cart management, payment integration, and admin dashboard.',
-    longDescription: 'ShopFlow is a complete e-commerce solution featuring product management, a smooth cart flow, Stripe payment integration, and a powerful admin dashboard. Focused on performance and conversion rate optimization.',
-    tech: ['Laravel', 'Inertia.js', 'Vue.js', 'MySQL'],
-    demoLink: '#',
-    repoLink: '#',
-    accent: 'from-orange-400 to-red-500',
-    image: null,
-  },
-  {
-    title: 'TaskBoard',
-    description: 'Kanban-style project management app with drag-and-drop, real-time collaboration, and team workspaces.',
-    longDescription: 'TaskBoard brings real-time collaborative project management to teams of all sizes. Powered by WebSockets, changes sync instantly across all users. Features drag-and-drop cards, labels, due dates, file attachments, and detailed activity logs.',
-    tech: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
-    demoLink: '#',
-    repoLink: '#',
-    accent: 'from-pink-500 to-rose-500',
-    image: null,
-  },
-  {
-    title: 'WeatherNow',
-    description: 'Elegant weather forecast application with location detection, hourly and 7-day forecasts, and beautiful animations.',
-    longDescription: 'WeatherNow delivers a premium weather experience with beautiful animated backgrounds that reflect actual weather conditions. Features GPS-based location detection, hourly and weekly forecasts, air quality index, and UV data.',
-    tech: ['React', 'TypeScript', 'Tailwind CSS', 'OpenWeather API'],
-    demoLink: '#',
-    repoLink: '#',
-    accent: 'from-sky-400 to-indigo-500',
-    image: null,
-  },
-  {
-    title: 'BlogStudio',
-    description: 'Headless CMS-powered blog platform with markdown support, SEO optimization, and lightning-fast performance.',
-    longDescription: 'BlogStudio is a static-site-generated blog platform built for developers and content creators. It features a clean markdown editor, automatic SEO meta generation, sitemap and RSS feed generation, and perfect Lighthouse scores.',
-    tech: ['Next.js', 'MDX', 'Contentlayer', 'Vercel'],
-    demoLink: '#',
-    repoLink: '#',
-    accent: 'from-yellow-400 to-orange-500',
-    image: null,
-  },
-  {
-    title: 'ChatAI',
-    description: 'AI-powered chat interface with streaming responses, multi-model support, and conversation history management.',
-    longDescription: 'ChatAI is an elegant frontend for interacting with large language models. It supports multiple AI providers, streaming response display for a natural typing feel, persistent conversation history, and a clean markdown renderer.',
-    tech: ['Next.js', 'OpenAI API', 'Supabase', 'Tailwind CSS'],
-    demoLink: '#',
-    repoLink: '#',
-    accent: 'from-green-400 to-emerald-500',
-    image: null,
-  },
-];
+import SectionHeading from './SectionHeading';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { projects } from '../data/projects';
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const { t } = useLanguage();
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -340, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 340, behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section id="projects" className="py-20 bg-slate-50/50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-6 md:px-12">
-        <SectionHeading>{t('projects.title')}</SectionHeading>
+    <section id="projects" className="py-20 bg-slate-50/50 dark:bg-slate-900/50 overflow-hidden relative">
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
         
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <SectionHeading className="!mb-0">{t('projects.title')}</SectionHeading>
+          
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={scrollLeft}
+              className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Previous project"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={scrollRight}
+              className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Next project"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Horizontal Scroll Carousel */}
+        <div 
+          ref={carouselRef}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-8 pt-2 -mx-6 px-6 md:-mx-12 md:px-12"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           {projects.map((project, index) => (
             <motion.div
-              layoutId={`card-${project.title}`}
-              onClick={() => setSelectedProject(project)}
-              key={project.title}
-              initial={{ opacity: 0, y: 30, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg hover:shadow-slate-200/60 dark:hover:shadow-slate-900/60 transition-shadow duration-300 group cursor-pointer overflow-hidden flex flex-col"
+              key={project.slug}
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
+              className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[360px] snap-start"
             >
-              {/* Banner: image if available, else accent initials */}
-              {project.image ? (
-                <div className="relative h-36 flex-shrink-0 overflow-hidden bg-slate-100 dark:bg-slate-900">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                </div>
-              ) : (
-                <div className="relative h-24 bg-slate-100 dark:bg-slate-900 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${project.accent}`} />
-                  <span className="text-5xl font-black text-slate-300 dark:text-slate-700 select-none tracking-tighter">
-                    {project.title.slice(0, 2).toUpperCase()}
-                  </span>
-                </div>
-              )}
-
-              <div className="p-5 flex flex-col flex-1">
-                <motion.h3 layoutId={`title-${project.title}`} className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-1.5 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors duration-200">
-                  {project.title}
-                </motion.h3>
-
-                <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-4 flex-1">
-                  {project.description}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.tech.slice(0, 3).map(tech => (
-                    <span key={tech} className="px-2 py-0.5 bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 text-[10px] font-medium rounded-full border border-slate-100 dark:border-slate-700">
-                      {tech}
+              <Link 
+                href={`/projects/${project.slug}`}
+                className="group block h-full bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:shadow-red-500/10 dark:hover:shadow-slate-900/50 transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1"
+              >
+                {/* Banner Image */}
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 360px"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center mix-blend-multiply dark:mix-blend-screen opacity-30">
+                      <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${project.accent}`} />
+                      <span className="text-7xl font-black text-slate-300 dark:text-slate-700 tracking-tighter">
+                        {project.title.slice(0, 2).toUpperCase()}
+                      </span>
+                    </div>
+                  )}
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                    <span className="text-white text-sm font-medium flex items-center gap-1.5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      Lihat Detail <ArrowRight className="w-4 h-4" />
                     </span>
-                  ))}
-                  {project.tech.length > 3 && <span className="text-[10px] text-slate-400 self-center">+{project.tech.length - 3}</span>}
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-3 pt-3 border-t border-slate-50 dark:border-slate-700/50">
-                  <a href={project.demoLink} onClick={e => e.stopPropagation()} className="flex items-center gap-1 text-xs text-red-600 dark:text-red-400 font-medium hover:underline">
-                    <ExternalLink className="w-3 h-3" /> Demo
-                  </a>
-                  <a href={project.repoLink} onClick={e => e.stopPropagation()} className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 font-medium hover:text-slate-700 dark:hover:text-slate-200 hover:underline">
-                    <Github className="w-3 h-3" /> Repo
-                  </a>
-                  <span className="ml-auto text-xs text-slate-400 group-hover:text-red-500 transition-colors">Details →</span>
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-2 mb-5 flex-1">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
+                    {project.tech.slice(0, 3).map(tech => (
+                      <span key={tech} className="px-2.5 py-1 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[10px] font-medium rounded-full uppercase tracking-wider">
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 3 && (
+                      <span className="px-2 py-1 text-[10px] text-slate-400 font-medium">
+                        +{project.tech.length - 3}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>
+
+        {/* View all button */}
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 text-sm text-red-600 dark:text-red-400 font-medium hover:underline underline-offset-4"
+          >
+            Lihat semua proyek
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
       </div>
-
-      {/* Case Study Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 md:p-12">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
-            />
-            
-            <motion.div
-              layoutId={`card-${selectedProject.title}`}
-              className="bg-white dark:bg-slate-800 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl relative z-10 border border-slate-100 dark:border-slate-700 flex flex-col"
-            >
-              <button 
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 p-2 bg-white/80 dark:bg-slate-700 backdrop-blur-sm rounded-full text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 z-20 shadow"
-              >
-                <X size={18} />
-              </button>
-
-              {/* Modal Banner */}
-              {selectedProject.image ? (
-                <div className="relative h-48 flex-shrink-0 overflow-hidden bg-slate-100 dark:bg-slate-900">
-                  <Image
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 672px"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
-                    <motion.h3 layoutId={`title-${selectedProject.title}`} className="text-3xl font-bold text-white drop-shadow">
-                      {selectedProject.title}
-                    </motion.h3>
-                  </div>
-                </div>
-              ) : (
-                <div className="relative h-36 bg-slate-100 dark:bg-slate-900 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                  <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${selectedProject.accent}`} />
-                  <motion.h3 layoutId={`title-${selectedProject.title}`} className="text-5xl font-black text-slate-300 dark:text-slate-700 select-none tracking-tighter">
-                    {selectedProject.title.slice(0, 2).toUpperCase()}
-                  </motion.h3>
-                  <span className="absolute bottom-3 text-xl font-bold text-slate-700 dark:text-slate-300">{selectedProject.title}</span>
-                </div>
-              )}
-
-              <div className="p-6 md:p-8 flex-1">
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {selectedProject.tech.map(tech => (
-                    <span key={tech} className="px-3 py-1 bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 text-sm font-medium rounded-full">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="space-y-5 text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
-                  <div>
-                    <h4 className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Overview</h4>
-                    <p className="text-sm">{selectedProject.description}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Deep Dive</h4>
-                    <p className="text-sm">{selectedProject.longDescription}</p>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 pt-5 border-t border-slate-100 dark:border-slate-700">
-                  <a href={selectedProject.demoLink} className="inline-flex items-center justify-center gap-2 bg-red-600 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:bg-red-700">
-                    <ExternalLink className="w-4 h-4" /> {t('projects.live')}
-                  </a>
-                  <a href={selectedProject.repoLink} className="inline-flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 px-5 py-2.5 rounded-full text-sm font-medium transition-all">
-                    <Github className="w-4 h-4" /> {t('projects.github')}
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
