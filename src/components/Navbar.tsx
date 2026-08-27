@@ -1,56 +1,55 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from 'next-themes';
 import Menu from './icons/Menu';
-import { useLanguage } from '../context/LanguageContext';
-import { Sun, Moon } from 'lucide-react';
 
-const Logo = ({ scrolled, theme }: { scrolled: boolean, theme?: string }) => {
-  const isDark = theme === 'dark';
-  const defaultBg = isDark ? '#f8fafc' : '#1e293b'; // slate-50 or slate-800
-  const defaultRed = isDark ? '#f87171' : '#dc2626'; // lighter red in dark mode
+const links = [
+  { name: 'Home', href: '#hero' },
+  { name: 'About', href: '#about' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Experience', href: '#experience' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Contact', href: '#contact' }
+];
 
-  return (
-    <a href="#hero" className="flex items-center gap-0.5 font-bold tracking-tight text-lg">
-      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultBg }}  transition={{ duration: 0.3 }}>M</motion.span>
-      <motion.span animate={{ color: scrolled ? '#111827' : defaultRed }} transition={{ duration: 0.3 }}>A</motion.span>
-      <motion.span animate={{ color: scrolled ? '#ffffff' : defaultBg }}  transition={{ duration: 0.3 }}>F</motion.span>
-      <motion.span animate={{ color: scrolled ? '#111827' : defaultRed }} transition={{ duration: 0.3 }}>.</motion.span>
-    </a>
-  );
-};
+const Logo = ({ scrolled }: { scrolled: boolean }) => (
+  <a href="#hero" className="flex items-center gap-0.5 font-bold tracking-tight text-lg">
+    <motion.span
+      animate={{ color: scrolled ? '#ffffff' : '#1e293b' }}
+      transition={{ duration: 0.3 }}
+    >
+      M
+    </motion.span>
+    <motion.span
+      animate={{ color: scrolled ? '#ffffff' : '#dc2626' }}
+      transition={{ duration: 0.3 }}
+    >
+      A
+    </motion.span>
+    <motion.span
+      animate={{ color: scrolled ? '#ffffff' : '#1e293b' }}
+      transition={{ duration: 0.3 }}
+    >
+      F
+    </motion.span>
+    <motion.span
+      animate={{ color: scrolled ? '#ffffff' : '#dc2626' }}
+      transition={{ duration: 0.3 }}
+    >
+      .
+    </motion.span>
+  </a>
+);
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const { language, toggleLanguage, t } = useLanguage();
-
-  const links = [
-    { name: 'Home', href: '#hero' },
-    { name: t('nav.about'), href: '#about' },
-    { name: t('nav.services') || 'Services', href: '#services' },
-    { name: t('nav.projects'), href: '#projects' },
-    { name: t('nav.experience'), href: '#experience' },
-    { name: t('nav.skills'), href: '#skills' },
-    { name: t('nav.contact'), href: '#contact' },
-  ];
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted && theme === 'dark';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 150);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const iconColor = scrolled ? '#ffffff' : (isDark ? '#f8fafc' : '#1e293b');
 
   return (
     <motion.header 
@@ -59,36 +58,36 @@ export default function Navbar() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex justify-center"
     >
-      <nav className="w-full xl:w-fit max-w-full">
+      <nav className="w-full md:w-fit">
         {/* Pill/Kapsul Navbar dengan Logo */}
         <motion.div 
           animate={{
-            backgroundColor: scrolled ? 'rgb(220, 38, 38)' : (isDark ? 'rgb(30, 41, 59)' : 'rgb(255, 255, 255)'),
-            borderColor: scrolled ? 'rgb(220, 38, 38)' : (isDark ? 'rgb(51, 65, 85)' : 'rgb(226, 232, 240)'),
+            backgroundColor: scrolled ? 'rgb(220, 38, 38)' : 'rgb(255, 255, 255)',
+            borderColor: scrolled ? 'rgb(220, 38, 38)' : 'rgb(226, 232, 240)',
             boxShadow: scrolled ? '0 10px 25px rgba(0, 0, 0, 0.1)' : '0 1px 3px rgba(0, 0, 0, 0.1)'
           }}
           transition={{ duration: 0.3 }}
-          className="flex items-center justify-between gap-2 lg:gap-6 px-5 lg:px-10 py-3 rounded-full border w-full max-w-[100vw] overflow-hidden"
+          className="flex items-center justify-between gap-0 md:gap-6 px-6 md:px-12 py-3 rounded-full border w-full"
         >
           {/* Logo */}
-          <motion.div className="flex-shrink-0">
-            <Logo scrolled={scrolled} theme={mounted ? theme : undefined} />
+          <motion.div>
+            <Logo scrolled={scrolled} />
           </motion.div>
           
           {/* Desktop Navigation Links */}
-          <ul className="hidden lg:flex flex-shrink-0 items-center gap-5 xl:gap-8 text-sm font-medium">
-            {links.map((link) => (
+          <ul className="hidden md:flex items-center gap-6 text-sm font-medium">
+            {links.map((link, index) => (
               <li key={link.name}>
                 <motion.a 
                   href={link.href}
-                  animate={{ color: scrolled ? '#ffffff' : (isDark ? '#f8fafc' : '#1e293b') }}
+                  animate={{ color: scrolled ? '#ffffff' : '#1e293b' }}
                   transition={{ duration: 0.3 }}
                   className="relative group py-2"
                 >
                   <span>{link.name}</span>
                   <motion.span 
                     animate={{ 
-                      backgroundColor: scrolled ? '#ffffff' : (isDark ? '#f8fafc' : '#1e293b')
+                      backgroundColor: scrolled ? '#ffffff' : '#1e293b'
                     }}
                     transition={{ duration: 0.3 }}
                     className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
@@ -98,64 +97,19 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Quick Actions (WA, Lang, Theme, Mobile toggle) */}
-          <div className="flex flex-shrink-0 items-center gap-1 sm:gap-2 lg:border-l lg:border-slate-200 dark:lg:border-slate-700 lg:pl-6 lg:ml-2">
-            
-            {/* WhatsApp */}
-            <motion.a 
-              href="https://wa.me/6285869236023" target="_blank" rel="noopener noreferrer"
-              animate={{ color: iconColor }}
-              whileHover={{ scale: 1.1, backgroundColor: scrolled ? 'rgba(255,255,255,0.2)' : (isDark ? 'rgba(248,250,252,0.1)' : 'rgba(30,41,59,0.05)') }}
-              className="p-2 rounded-full hidden lg:flex items-center justify-center transition-colors hover:text-[#25D366]"
-              aria-label="WhatsApp"
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 transition-colors"
+            aria-label="Toggle menu"
+          >
+            <motion.div
+              animate={{ color: scrolled ? '#ffffff' : '#1e293b' }}
+              transition={{ duration: 0.3 }}
             >
-              <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-              </svg>
-            </motion.a>
-
-            {/* Language Toggle */}
-            <motion.button 
-              onClick={toggleLanguage}
-              animate={{ color: iconColor }}
-              whileHover={{ scale: 1.1, backgroundColor: scrolled ? 'rgba(255,255,255,0.2)' : (isDark ? 'rgba(248,250,252,0.1)' : 'rgba(30,41,59,0.05)') }}
-              className="w-8 h-8 md:w-9 md:h-9 text-[11px] font-extrabold tracking-wider rounded-full flex items-center justify-center uppercase transition-colors"
-              aria-label="Toggle Language"
-            >
-              {language}
-            </motion.button>
-            
-            {/* Theme Toggle */}
-            <motion.button 
-              onClick={() => {
-                if (document.startViewTransition) {
-                  document.startViewTransition(() => setTheme(isDark ? 'light' : 'dark'));
-                } else {
-                  setTheme(isDark ? 'light' : 'dark');
-                }
-              }}
-              animate={{ color: iconColor }}
-              whileHover={{ scale: 1.1, backgroundColor: scrolled ? 'rgba(255,255,255,0.2)' : (isDark ? 'rgba(248,250,252,0.1)' : 'rgba(30,41,59,0.05)') }}
-              className="p-2 rounded-full flex items-center justify-center transition-colors"
-              aria-label="Toggle Dark Mode"
-            >
-              {mounted && (isDark ? <Sun className="w-4 h-4 md:w-5 md:h-5" /> : <Moon className="w-4 h-4 md:w-5 md:h-5" />)}
-            </motion.button>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-1.5 sm:p-2 transition-colors ml-1"
-              aria-label="Toggle menu"
-            >
-              <motion.div
-                animate={{ color: iconColor }}
-                transition={{ duration: 0.3 }}
-              >
-                <Menu className="w-6 h-6" />
-              </motion.div>
-            </button>
-          </div>
+              <Menu className="w-6 h-6" />
+            </motion.div>
+          </button>
         </motion.div>
       </nav>
 
@@ -167,35 +121,20 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden absolute top-full left-6 right-6 mt-2 bg-red-600/95 backdrop-blur-md border border-red-500/50 rounded-2xl shadow-lg p-4"
+            className="md:hidden absolute top-full left-6 right-6 mt-2 bg-red-600/95 backdrop-blur-md border border-red-500/50 rounded-2xl shadow-lg p-4"
           >
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-3">
               {links.map((link) => (
                 <li key={link.name}>
                   <a 
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-2.5 text-white hover:text-red-100 hover:bg-red-700/50 rounded-lg transition-colors duration-200 font-medium text-sm"
+                    className="block px-4 py-2 text-white hover:text-red-100 hover:bg-red-700/50 rounded-lg transition-colors duration-200 font-medium"
                   >
                     {link.name}
                   </a>
                 </li>
               ))}
-              {/* WhatsApp in mobile menu */}
-              <li className="pt-2 border-t border-red-500/40 mt-1">
-                <a
-                  href="https://wa.me/6285869236023"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 text-white hover:text-green-300 hover:bg-red-700/50 rounded-lg transition-colors duration-200 font-medium text-sm"
-                >
-                  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                  </svg>
-                  WhatsApp
-                </a>
-              </li>
             </ul>
           </motion.div>
         )}

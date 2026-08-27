@@ -4,33 +4,33 @@ import ArrowRight from './icons/ArrowRight';
 
 export default function CTA() {
   return (
-    <section className="py-24 md:py-32 bg-white dark:bg-slate-900 overflow-hidden relative">
+    <section className="py-24 md:py-32 bg-white overflow-hidden relative">
       {/* Background Pattern */}
-      <div className="absolute inset-0 z-0 border-y border-slate-100 dark:border-slate-800">
-        <div className="absolute inset-0 bg-grid-slate-100/[0.04] dark:bg-grid-slate-900/[0.04] bg-[size:40px_40px]"></div>
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-grid-slate-100/[0.04] bg-[size:40px_40px]"></div>
       </div>
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
-          initial={{ opacity: 0, scale: 0.97, y: 30 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: '-50px' }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
-            Ready to start something <span className="text-red-600 dark:text-red-500">amazing?</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+            Ready to start something <span className="text-red-600">amazing?</span>
           </h2>
           
-          <p className="text-xl text-slate-600 dark:text-slate-400 mb-12 font-light leading-relaxed">
+          <p className="text-xl text-slate-600 mb-12 font-light leading-relaxed">
             I'm always open to new opportunities and interesting projects. Let's connect and create something remarkable together.
           </p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap"
           >
             <a
@@ -44,7 +44,7 @@ export default function CTA() {
             <a
               href="/resume.pdf"
               download
-              className="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:border-red-600 dark:hover:border-red-500 hover:text-red-600 dark:hover:text-red-500 hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-2 bg-slate-100 text-slate-800 border border-slate-200 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:border-red-600 hover:text-red-600 hover:scale-105 active:scale-95"
             >
               Download Resume
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,9 +59,9 @@ export default function CTA() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             viewport={{ once: true }}
-            className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800"
+            className="mt-16 pt-12 border-t border-slate-200"
           >
-            <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">Or reach out on social media</p>
+            <p className="text-slate-500 text-sm mb-6">Or reach out on social media</p>
             <div className="flex items-center justify-center gap-6">
               {[
                 { name: 'GitHub', url: '#' },
@@ -74,7 +74,7 @@ export default function CTA() {
                   href={link.url}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-400 hover:bg-red-600 dark:hover:bg-red-600 hover:text-white dark:hover:text-white transition-colors duration-300"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-red-600 hover:text-white transition-colors duration-300"
                   title={link.name}
                 >
                   {link.name === 'GitHub' && (
