@@ -2,10 +2,10 @@ export const translations = {
   en: {
     nav: {
       about: "About",
-      services: "Services",
+      projects: "Projects",
       experience: "Experience",
       skills: "Skills",
-      projects: "Projects",
+      certificates: "Certificates",
       contact: "Contact"
     },
     hero: {
@@ -23,8 +23,8 @@ export const translations = {
     },
     about: {
       title: "About Me",
-      desc1: "I'm a passionate Frontend Developer with a keen eye for design and user experience. With over 2 years of professional experience, I specialize in building clean, performant, and accessible web applications using modern technologies.",
-      desc2: "My journey in web development started with a curiosity about how websites work. Today, I combine technical expertise with creative problem-solving to deliver digital solutions that make an impact. I'm particularly interested in React, Next.js, and creating seamless user experiences.",
+      desc1: "Undergraduate Informatics student at Jenderal Soedirman University with proven experience in Software Engineering, UI/UX Design, Web Development, and Digital Solutions. Experienced in developing web-based information systems, designing user-centered interfaces, and supporting IT operations.",
+      desc2: "Combining technical problem-solving with creative interface development, I focus on building scalable, performant web applications using Next.js, React, Laravel, and modern technologies.",
       getInTouch: "Get in Touch",
       downloadResume: "Download Resume",
       stats: {
@@ -76,10 +76,10 @@ export const translations = {
   id: {
     nav: {
       about: "Tentang",
-      services: "Layanan",
+      projects: "Proyek",
       experience: "Pengalaman",
       skills: "Keahlian",
-      projects: "Proyek",
+      certificates: "Sertifikat",
       contact: "Kontak"
     },
     hero: {
@@ -97,8 +97,8 @@ export const translations = {
     },
     about: {
       title: "Tentang Saya",
-      desc1: "Saya adalah Frontend Developer yang detail dalam desain dan pengalaman pengguna. Dengan lebih dari 2 tahun pengalaman profesional, saya fokus meracik aplikasi web yang bersih, performan, dan modern.",
-      desc2: "Perjalanan saya di dunia web development dimulai dari rasa penasaran yang besar. Kini, saya menggabungkan keahlian teknis dan kreativitas untuk menghasilkan solusi digital yang luar biasa. Sangat antusias terhadap React dan sistem antarmuka.",
+      desc1: "Mahasiswa S1 Informatika di Universitas Jenderal Soedirman dengan keahlian di bidang Rekayasa Perangkat Lunak, Desain UI/UX, Pengembangan Web, dan Solusi Digital. Berpengalaman dalam mengembangkan sistem informasi berbasis web dan merancang antarmuka yang berpusat pada pengguna.",
+      desc2: "Aktif memimpin inisiatif teknologi dan berpengalaman dalam riset TI serta operasional sistem. Berfokus pada pembangunan solusi digital yang terukur dan modern menggunakan Next.js, React, dan ekosistem terkait.",
       getInTouch: "Hubungi Saya",
       downloadResume: "Unduh CV",
       stats: {

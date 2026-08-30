@@ -39,10 +39,10 @@ export default function Navbar() {
   const links = [
     { name: 'Home', href: '#hero' },
     { name: t('nav.about') || 'About', href: '#about' },
-    { name: t('nav.services') || 'Services', href: '#services' },
     { name: t('nav.projects') || 'Projects', href: '#projects' },
     { name: t('nav.experience') || 'Experience', href: '#experience' },
     { name: t('nav.skills') || 'Skills', href: '#skills' },
+    { name: t('nav.certificates') || 'Certificates', href: '#certificates' },
     { name: t('nav.contact') || 'Contact', href: '#contact' },
   ];
 
