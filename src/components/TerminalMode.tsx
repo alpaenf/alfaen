@@ -50,7 +50,7 @@ export default function TerminalMode() {
         newHistory.push({ type: "system", text: "Available commands: help, about, skills, projects, clear, sudo" });
         break;
       case "about":
-        newHistory.push({ type: "system", text: "I'm a Frontend Developer passionate about building interactive, accessible, and performant web applications." });
+        newHistory.push({ type: "system", text: "I'm a Full Stack Developer passionate about building interactive, accessible, and performant web applications." });
         break;
       case "skills":
         newHistory.push({ type: "system", text: "React, Next.js, TypeScript, Tailwind CSS, Framer Motion, Redux, Node.js" });

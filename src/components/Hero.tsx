@@ -51,8 +51,8 @@ export default function Hero() {
               className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-lg mx-auto md:mx-0 font-light leading-relaxed"
             >
               {language === 'id' 
-                ? 'Frontend & Web Developer yang merancang pengalaman digital yang bersih, modern, dan berfokus pada performa serta kemudahan pengguna.'
-                : 'Frontend Developer creating clean, modern, and user-centric digital experiences with a focus on performant, accessible web applications.'
+                ? 'Full Stack Developer yang merancang pengalaman digital yang bersih, modern, dan berfokus pada performa serta kemudahan pengguna.'
+                : 'Full Stack Developer creating clean, modern, and user-centric digital experiences with a focus on performant, accessible web applications.'
               }
             </motion.p>
             

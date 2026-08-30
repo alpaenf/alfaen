@@ -32,7 +32,7 @@ const greatVibes = Great_Vibes({
 
 export const metadata: Metadata = {
   title: "Mukhammad Alfaen Fadillah | Portfolio",
-  description: "Personal portfolio of Mukhammad Alfaen Fadillah, a Frontend Developer specialzing in React and Next.js",
+  description: "Personal portfolio of Mukhammad Alfaen Fadillah, a Full Stack Developer specializing in React, Next.js, and modern web applications",
 };
 
 export default function RootLayout({

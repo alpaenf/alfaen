@@ -76,7 +76,7 @@ export default function SplashScreen() {
                 Mukhammad Alfaen Fadillah
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium tracking-widest uppercase mt-1">
-                Frontend Developer
+                Full Stack Developer
               </p>
             </motion.div>
 
