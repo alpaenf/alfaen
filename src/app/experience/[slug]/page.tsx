@@ -2,7 +2,19 @@ import { experiences } from '@/data/experience';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Building2, Calendar, Users, Briefcase, Camera } from 'lucide-react';
+import { 
+  ArrowLeft, 
+  Building2, 
+  Calendar, 
+  Users, 
+  Briefcase, 
+  Camera, 
+  FlaskConical, 
+  Terminal, 
+  Code2, 
+  GraduationCap, 
+  ShieldCheck 
+} from 'lucide-react';
 import type { Metadata } from 'next';
 
 type Props = { params: Promise<{ slug: string }> };
@@ -29,6 +41,40 @@ export default async function ExperienceDetailPage({ params }: Props) {
   const prev = experiences[currentIndex - 1] ?? null;
   const next = experiences[currentIndex + 1] ?? null;
 
+  const renderIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'flask':
+        return <FlaskConical className="w-10 h-10" />;
+      case 'terminal':
+        return <Terminal className="w-10 h-10" />;
+      case 'code':
+        return <Code2 className="w-10 h-10" />;
+      case 'building':
+        return <Building2 className="w-10 h-10" />;
+      case 'users':
+        return <Users className="w-10 h-10" />;
+      case 'shield':
+        return <ShieldCheck className="w-10 h-10" />;
+      case 'graduation':
+        return <GraduationCap className="w-10 h-10" />;
+      default:
+        return <Briefcase className="w-10 h-10" />;
+    }
+  };
+
+  const getCategoryLabel = (category: string) => {
+    switch (category) {
+      case 'professional':
+        return 'Professional Experience';
+      case 'organizational':
+        return 'Organizational Experience';
+      case 'bootcamp':
+        return 'Bootcamp & Training';
+      default:
+        return 'Experience';
+    }
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900 pt-24 pb-20">
       <div className="container mx-auto px-6 md:px-12 max-w-5xl">
@@ -48,12 +94,24 @@ export default async function ExperienceDetailPage({ params }: Props) {
 
           <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
             <div className="flex gap-6 items-center">
-              <div className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br ${exp.accent} shadow-2xl flex items-center justify-center text-white shrink-0`}>
-                {exp.icon === 'building' ? <Building2 className="w-10 h-10" /> : <Users className="w-10 h-10" />}
+              <div className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl ${exp.logo ? 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-2.5' : `bg-gradient-to-br ${exp.accent} text-white`} shadow-2xl flex items-center justify-center shrink-0 relative overflow-hidden`}>
+                {exp.logo ? (
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={exp.logo}
+                      alt={exp.company}
+                      fill
+                      sizes="96px"
+                      className="object-contain"
+                    />
+                  </div>
+                ) : (
+                  renderIcon(exp.icon || 'flask')
+                )}
               </div>
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 block flex items-center gap-1.5">
-                  <Briefcase className="w-3.5 h-3.5" /> {exp.type === 'work' ? 'Pekerjaan' : 'Organisasi'}
+                  <Briefcase className="w-3.5 h-3.5" /> {getCategoryLabel(exp.category)}
                 </span>
                 <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-2">
                   {exp.role}

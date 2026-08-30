@@ -1,7 +1,17 @@
 import { experiences } from '@/data/experience';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Building2, Users } from 'lucide-react';
+import { 
+  ArrowLeft, 
+  Building2, 
+  Users, 
+  FlaskConical, 
+  Terminal, 
+  Code2, 
+  GraduationCap, 
+  ShieldCheck, 
+  Briefcase 
+} from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,6 +19,27 @@ export const metadata: Metadata = {
 };
 
 export default function ExperiencePage() {
+  const renderIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'flask':
+        return <FlaskConical className="w-4 h-4 md:w-5 md:h-5" />;
+      case 'terminal':
+        return <Terminal className="w-4 h-4 md:w-5 md:h-5" />;
+      case 'code':
+        return <Code2 className="w-4 h-4 md:w-5 md:h-5" />;
+      case 'building':
+        return <Building2 className="w-4 h-4 md:w-5 md:h-5" />;
+      case 'users':
+        return <Users className="w-4 h-4 md:w-5 md:h-5" />;
+      case 'shield':
+        return <ShieldCheck className="w-4 h-4 md:w-5 md:h-5" />;
+      case 'graduation':
+        return <GraduationCap className="w-4 h-4 md:w-5 md:h-5" />;
+      default:
+        return <Briefcase className="w-4 h-4 md:w-5 md:h-5" />;
+    }
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900 pt-24 pb-20">
       <div className="container mx-auto px-6 md:px-12 max-w-5xl">
@@ -22,15 +53,27 @@ export default function ExperiencePage() {
         </Link>
 
         <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-16 tracking-tight">
-          Perjalanan <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">Karir & Organisasi</span>
+          Perjalanan <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">Karir, Organisasi & Bootcamp</span>
         </h1>
 
         <div className="space-y-12 relative before:absolute before:inset-0 before:left-[19px] md:before:left-[23px] before:w-[2px] before:bg-gradient-to-b before:from-red-200 dark:before:from-red-900/50 before:to-transparent before:-z-10">
           {experiences.map((item, i) => (
             <div key={item.slug} className="relative pl-12 md:pl-16">
               {/* Timeline dot */}
-              <div className={`absolute left-0 top-1 w-10 h-10 md:w-12 md:h-12 rounded-full border-4 border-white dark:border-slate-900 bg-gradient-to-br ${item.accent} flex items-center justify-center text-white shadow-lg`}>
-                {item.icon === 'building' ? <Building2 className="w-4 h-4 md:w-5 md:h-5" /> : <Users className="w-4 h-4 md:w-5 md:h-5" />}
+              <div className={`absolute left-0 top-1 w-10 h-10 md:w-12 md:h-12 rounded-full border-4 border-white dark:border-slate-900 ${item.logo ? 'bg-white dark:bg-slate-800 p-1' : `bg-gradient-to-br ${item.accent} text-white`} flex items-center justify-center shadow-lg overflow-hidden`}>
+                {item.logo ? (
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={item.logo}
+                      alt={item.company}
+                      fill
+                      sizes="48px"
+                      className="object-contain"
+                    />
+                  </div>
+                ) : (
+                  renderIcon(item.icon || 'flask')
+                )}
               </div>
 
               <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 border border-slate-100 dark:border-slate-700 shadow-sm transition-shadow hover:shadow-lg">

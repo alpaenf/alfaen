@@ -1,234 +1,294 @@
 'use client';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeading from './SectionHeading';
+import { useLanguage } from '../context/LanguageContext';
+import {
+  SiJavascript,
+  SiTypescript,
+  SiReact,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiLaravel,
+  SiFlutter,
+  SiExpress,
+  SiPython,
+  SiVuedotjs,
+  SiFigma,
+  SiFirebase,
+  SiGithub,
+  SiMongodb,
+  SiPostman,
+  SiGit,
+  SiDocker,
+  SiMysql,
+  SiSupabase
+} from 'react-icons/si';
 
-type SkillItem = {
+// ─── 100% Exact Official Microsoft VS Code SVG ───
+const VSCodeOfficialIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10" fill="none">
+    <path 
+      d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .32 8.653L4.47 12 .32 15.347a1 1 0 0 0 .007 1.392l1.322 1.202a1 1 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zM18 17.584l-7.382-5.584L18 6.416v11.168z" 
+      fill="#007ACC" 
+    />
+  </svg>
+);
+
+// ─── Antigravity (Google AGY) Custom Futuristic Vector Logo ───
+const AntigravityIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10" fill="none">
+    <circle cx="12" cy="12" r="9.5" stroke="url(#agyGrad)" strokeWidth="1.8" strokeDasharray="3 1.5" />
+    <circle cx="12" cy="12" r="4.5" fill="url(#agyCore)" />
+    <path d="M12 2.5V5.5M12 18.5V21.5M2.5 12H5.5M18.5 12H21.5" stroke="url(#agyGrad)" strokeWidth="1.8" strokeLinecap="round" />
+    <path d="M5.5 5.5L7.5 7.5M16.5 16.5L18.5 18.5M18.5 5.5L16.5 7.5M7.5 16.5L5.5 18.5" stroke="url(#agyGrad)" strokeWidth="1.5" strokeLinecap="round" />
+    <defs>
+      <linearGradient id="agyGrad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#38BDF8" />
+        <stop offset="1" stopColor="#A855F7" />
+      </linearGradient>
+      <linearGradient id="agyCore" x1="7.5" y1="7.5" x2="16.5" y2="16.5" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#06B6D4" />
+        <stop offset="1" stopColor="#6366F1" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+interface SkillItem {
   name: string;
-  logo: React.ReactNode;
-};
+  category: 'frameworks' | 'tools';
+  icon: React.ReactNode;
+  bg?: string;
+}
 
-type SkillCategory = {
-  title: string;
-  skills: SkillItem[];
-};
+// ─── Frameworks & Languages Dataset ───
+const frameworkSkills: SkillItem[] = [
+  {
+    name: 'JavaScript',
+    category: 'frameworks',
+    bg: 'bg-[#F7DF1E]',
+    icon: <SiJavascript className="w-8 h-8 sm:w-10 sm:h-10 text-black" />,
+  },
+  {
+    name: 'TypeScript',
+    category: 'frameworks',
+    bg: 'bg-[#3178C6]',
+    icon: <SiTypescript className="w-8 h-8 sm:w-10 sm:h-10 text-white" />,
+  },
+  {
+    name: 'React',
+    category: 'frameworks',
+    icon: <SiReact className="w-8 h-8 sm:w-10 sm:h-10 text-[#61DAFB]" />,
+  },
+  {
+    name: 'Next.js',
+    category: 'frameworks',
+    icon: <SiNextdotjs className="w-8 h-8 sm:w-10 sm:h-10 text-slate-900 dark:text-white" />,
+  },
+  {
+    name: 'Tailwind CSS',
+    category: 'frameworks',
+    icon: <SiTailwindcss className="w-8 h-8 sm:w-10 sm:h-10 text-[#38BDF8]" />,
+  },
+  {
+    name: 'Node.js',
+    category: 'frameworks',
+    icon: <SiNodedotjs className="w-8 h-8 sm:w-10 sm:h-10 text-[#5FA04E]" />,
+  },
+  {
+    name: 'Laravel',
+    category: 'frameworks',
+    icon: <SiLaravel className="w-8 h-8 sm:w-10 sm:h-10 text-[#FF2D20]" />,
+  },
+  {
+    name: 'Flutter',
+    category: 'frameworks',
+    icon: <SiFlutter className="w-8 h-8 sm:w-10 sm:h-10 text-[#02569B] dark:text-[#54C5F8]" />,
+  },
+  {
+    name: 'Express.js',
+    category: 'frameworks',
+    icon: <SiExpress className="w-8 h-8 sm:w-10 sm:h-10 text-slate-900 dark:text-white" />,
+  },
+  {
+    name: 'Python',
+    category: 'frameworks',
+    icon: <SiPython className="w-8 h-8 sm:w-10 sm:h-10 text-[#3776AB]" />,
+  },
+  {
+    name: 'Vue.js',
+    category: 'frameworks',
+    icon: <SiVuedotjs className="w-8 h-8 sm:w-10 sm:h-10 text-[#4FC08D]" />,
+  },
+];
 
-const CLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-blue-500" fill="currentColor">
-    <path d="M12 2L22 7.5V16.5L12 22L2 16.5V7.5L12 2Z" fill="none" stroke="currentColor" strokeWidth="2"/>
-    <text x="12" y="15.5" fontSize="12" fontWeight="bold" textAnchor="middle" fill="currentColor">C</text>
-  </svg>
-);
+// ─── Tools & Ecosystem Dataset ───
+const toolSkills: SkillItem[] = [
+  {
+    name: 'Figma',
+    category: 'tools',
+    icon: <SiFigma className="w-8 h-8 sm:w-10 sm:h-10 text-[#F24E1E]" />,
+  },
+  {
+    name: 'Firebase',
+    category: 'tools',
+    icon: <SiFirebase className="w-8 h-8 sm:w-10 sm:h-10 text-[#FFCA28]" />,
+  },
+  {
+    name: 'GitHub',
+    category: 'tools',
+    icon: <SiGithub className="w-8 h-8 sm:w-10 sm:h-10 text-slate-900 dark:text-white" />,
+  },
+  {
+    name: 'VS Code',
+    category: 'tools',
+    icon: <VSCodeOfficialIcon />,
+  },
+  {
+    name: 'Antigravity',
+    category: 'tools',
+    icon: <AntigravityIcon />,
+  },
+  {
+    name: 'MongoDB',
+    category: 'tools',
+    icon: <SiMongodb className="w-8 h-8 sm:w-10 sm:h-10 text-[#47A248]" />,
+  },
+  {
+    name: 'Postman',
+    category: 'tools',
+    bg: 'bg-[#FF6C37]',
+    icon: <SiPostman className="w-8 h-8 sm:w-10 sm:h-10 text-white" />,
+  },
+  {
+    name: 'Git',
+    category: 'tools',
+    bg: 'bg-[#F05032]',
+    icon: <SiGit className="w-8 h-8 sm:w-10 sm:h-10 text-white" />,
+  },
+  {
+    name: 'Docker',
+    category: 'tools',
+    bg: 'bg-[#2496ED]',
+    icon: <SiDocker className="w-8 h-8 sm:w-10 sm:h-10 text-white" />,
+  },
+  {
+    name: 'MySQL',
+    category: 'tools',
+    icon: <SiMysql className="w-8 h-8 sm:w-10 sm:h-10 text-[#4479A1]" />,
+  },
+  {
+    name: 'Supabase',
+    category: 'tools',
+    icon: <SiSupabase className="w-8 h-8 sm:w-10 sm:h-10 text-[#3ECF8E]" />,
+  },
+];
 
-// Logo Components
-const ReactLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/>
-    <ellipse cx="12" cy="12" rx="8" ry="3" opacity="0.6"/>
-    <ellipse cx="12" cy="12" rx="8" ry="3" opacity="0.6" transform="rotate(60 12 12)"/>
-    <ellipse cx="12" cy="12" rx="8" ry="3" opacity="0.6" transform="rotate(120 12 12)"/>
-  </svg>
-);
+// ─── Glassmorphic Squircle App Icon Tile ───
+const SquircleTile = ({ item, index }: { item: SkillItem; index: number }) => {
+  const [hovered, setHovered] = useState(false);
 
-const NextjsLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-slate-800 dark:text-white" fill="currentColor">
-    <text x="12" y="16" fontSize="14" fontWeight="bold" textAnchor="middle">N</text>
-  </svg>
-);
-
-const VueLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-emerald-500" fill="currentColor">
-    <path d="M2 4L12 20L22 4H17L12 12L7 4H2Z" />
-    <path d="M7 4L12 12L17 4H13.5L12 6.5L10.5 4H7Z" fill="white" fillOpacity="0.5"/>
-  </svg>
-);
-
-const TailwindLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-sky-400" fill="currentColor">
-    <path d="M 8 12 Q 12 8 16 12 Q 12 16 8 12M 6 8 Q 10 4 14 8 Q 10 12 6 8M 10 16 Q 14 12 18 16 Q 14 20 10 16"/>
-  </svg>
-);
-
-const LaravelLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-red-500" fill="currentColor">
-    <path d="M2 6.5L12 2L22 6.5V17.5L12 22L2 17.5V6.5Z"/>
-    <path d="M12 4.5L18.5 7.5V15L12 18L5.5 15V7.5L12 4.5Z" fill="white" fillOpacity="0.8"/>
-  </svg>
-);
-
-const MySQLLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <ellipse cx="12" cy="7" rx="9" ry="3" />
-    <path d="M3 7v10c0 1.66 4.03 3 9 3s9-1.34 9-3V7" />
-    <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
-  </svg>
-);
-
-const SupabaseLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-emerald-400" fill="currentColor">
-    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
-    <path d="M12 4L12 12L18 12Z" />
-  </svg>
-);
-
-const FirebaseLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-amber-500" fill="currentColor">
-    <path d="M4 17L12 22L20 17L16 4L12 8L9 2Z" />
-  </svg>
-);
-
-const FlutterLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-cyan-500" fill="currentColor">
-    <path d="M14 2L4 12L9 17L19 7Z" />
-    <path d="M14 12L10 16L19 22H24L14 12Z" />
-  </svg>
-);
-
-const KotlinLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-purple-600" fill="currentColor">
-    <path d="M2 22L12 12L2 2Z" />
-    <path d="M12 12L22 2H2Z" />
-    <path d="M2 2V12L12 2H2Z" fillOpacity="0.6"/>
-  </svg>
-);
-
-const InertiaLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-purple-500" fill="currentColor">
-    <path d="M6 6L18 12L6 18Z" />
-    <path d="M10 6L22 12L10 18Z" fillOpacity="0.5"/>
-  </svg>
-);
-
-const FilamentLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-orange-500" fill="currentColor">
-    <path d="M12 2L22 7L12 12L2 7Z" />
-    <path d="M2 12L12 17L22 12" fill="none" stroke="currentColor" strokeWidth="2"/>
-    <path d="M2 17L12 22L22 17" fill="none" stroke="currentColor" strokeWidth="2"/>
-  </svg>
-);
-
-const TypeScriptLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-blue-600" fill="currentColor">
-    <rect x="2" y="2" width="20" height="20" rx="2"/>
-    <text x="12" y="16" fontSize="12" fontWeight="bold" textAnchor="middle" fill="white">TS</text>
-  </svg>
-);
-
-const JavaScriptLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-yellow-400" fill="currentColor">
-    <rect x="2" y="2" width="20" height="20" rx="2"/>
-    <text x="12" y="16" fontSize="11" fontWeight="bold" textAnchor="middle" fill="black">JS</text>
-  </svg>
-);
-
-const BootstrapLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-purple-600" fill="currentColor">
-    <path d="M4 3C3 3 2 4 2 5V19C2 20 3 21 4 21H20C21 21 22 20 22 19V5C22 4 21 3 20 3H4ZM8.5 7H14C15.5 7 16.5 7.5 16.5 9C16.5 10 16 10.5 15 11C16.5 11 17 12 17 13.5C17 15.5 15.5 16.5 13.5 16.5H8.5V7ZM11 9.5V11H13.5C14 11 14.5 10.5 14.5 9.5C14.5 9 14 8.5 13.5 8.5H11V9.5ZM11 13V14.5H13.5C14 14.5 14.5 14 14.5 13C14.5 12 14 11.5 13.5 11.5H11V13Z" />
-  </svg>
-);
-
-const AdonisJSLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-[#5a45ff]" fill="currentColor">
-    <path d="M12 2L22 22H18.5L12 9L5.5 22H2L12 2Z" />
-    <path d="M12 12L16 20H13.5L12 16L10.5 20H8L12 12Z" fillOpacity="0.5"/>
-  </svg>
-);
-
-const GitLogo = () => (
-  <svg viewBox="0 0 24 24" className="w-8 h-8 text-orange-600" fill="currentColor">
-    <circle cx="18" cy="6" r="1.5"/>
-    <circle cx="6" cy="18" r="1.5"/>
-    <path d="M 6 6 L 18 18 M 18 6 L 6 18" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-  </svg>
-);
-
-const SkillBadge = ({ skill }: { skill: SkillItem }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.2 }}
-      className="group flex flex-col items-center gap-2 p-4 rounded-lg border border-slate-100 dark:border-slate-700/50 hover:border-red-300 dark:hover:border-red-500/50 hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all duration-200 cursor-default"
+      transition={{ duration: 0.35, delay: index * 0.03, ease: 'easeOut' }}
+      whileHover={{ y: -6, scale: 1.08 }}
+      whileTap={{ scale: 0.95 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative flex flex-col items-center group cursor-pointer select-none"
     >
-      <div className="text-slate-700 dark:text-slate-300 group-hover:scale-110 transition-all duration-200">
-        {skill.logo}
+      {/* 3D Glassmorphic Squircle Container */}
+      <div 
+        className={`w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-2xl md:rounded-[1.35rem] ${
+          item.bg 
+            ? `${item.bg} shadow-md shadow-slate-300/40 dark:shadow-black/40` 
+            : 'bg-white/70 dark:bg-[#0c101d]/90 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:border-slate-400 dark:hover:border-slate-500 hover:bg-white/90 dark:hover:bg-[#121624]'
+        } transition-all duration-300 p-2.5 sm:p-3.5 md:p-4 flex items-center justify-center relative overflow-hidden`}
+      >
+        {/* Subtle top inner bevel highlight */}
+        {!item.bg && (
+          <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 dark:via-white/20 to-transparent pointer-events-none" />
+        )}
+
+        {/* Official Vector Icon */}
+        <div className="relative z-10 flex items-center justify-center w-full h-full">
+          {item.icon}
+        </div>
       </div>
-      <span className="text-xs font-medium text-slate-600 dark:text-slate-400 text-center line-clamp-2 group-hover:text-slate-900 dark:group-hover:text-slate-100">
-        {skill.name}
-      </span>
+
+      {/* Floating Hover Name Tooltip */}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.9 }}
+            transition={{ duration: 0.15 }}
+            className="absolute -bottom-9 z-30 px-3 py-1 rounded-md bg-slate-900/95 dark:bg-slate-800/95 border border-slate-700 text-white text-xs font-semibold tracking-tight whitespace-nowrap shadow-2xl pointer-events-none"
+          >
+            {item.name}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
 
-const skillCategories: SkillCategory[] = [
-  {
-    title: 'Frontend & Mobile',
-    skills: [
-      { name: 'React', logo: <ReactLogo /> },
-      { name: 'Next.js', logo: <NextjsLogo /> },
-      { name: 'Vue JS', logo: <VueLogo /> },
-      { name: 'Flutter', logo: <FlutterLogo /> },
-      { name: 'Kotlin', logo: <KotlinLogo /> },
-      { name: 'JavaScript', logo: <JavaScriptLogo /> },
-      { name: 'TypeScript', logo: <TypeScriptLogo /> },
-      { name: 'Tailwind CSS', logo: <TailwindLogo /> },
-      { name: 'Bootstrap', logo: <BootstrapLogo /> },
-    ]
-  },
-  {
-    title: 'Backend & Database',
-    skills: [
-      { name: 'Laravel', logo: <LaravelLogo /> },
-      { name: 'MySQL', logo: <MySQLLogo /> },
-      { name: 'Supabase', logo: <SupabaseLogo /> },
-      { name: 'Firebase', logo: <FirebaseLogo /> },
-      { name: 'Adonis JS', logo: <AdonisJSLogo /> },
-      { name: 'Filament', logo: <FilamentLogo /> },
-      { name: 'Inertia.js', logo: <InertiaLogo /> },
-      { name: 'C / C++', logo: <CLogo /> }
-    ]
-  },
-  {
-    title: 'Tools & Ecosystem',
-    skills: [
-      { name: 'Git & GitHub', logo: <GitLogo /> },
-      { name: 'Figma', logo: <svg viewBox="0 0 24 24" className="w-8 h-8 text-pink-500" fill="currentColor"><circle cx="8" cy="8" r="2.5"/><circle cx="16" cy="8" r="2.5"/><circle cx="16" cy="16" r="2.5"/><circle cx="8" cy="16" r="2.5"/><circle cx="12" cy="12" r="1.5" fill="white"/></svg> },
-      { name: 'Postman', logo: <svg viewBox="0 0 24 24" className="w-8 h-8 text-orange-500" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M 8 10 L 12 14 L 16 10" stroke="white" strokeWidth="1.5" fill="none"/></svg> },
-      { name: 'Problem Solving', logo: <svg viewBox="0 0 24 24" className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="8"/><path d="M 12 8 L 14 12 L 12 16 L 10 12 Z"/></svg> },
-      { name: 'Communication', logo: <svg viewBox="0 0 24 24" className="w-8 h-8 text-slate-500" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M 4 12 L 20 12 M 4 8 L 20 8 M 4 16 L 20 16"/></svg> }
-    ]
-  }
-];
-
 export default function Skills() {
+  const { language, t } = useLanguage();
+
   return (
-    <section id="skills" className="py-20 bg-slate-50/50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-        <SectionHeading>Skills & Expertise</SectionHeading>
+    <section id="skills" className="py-24 md:py-32 bg-white dark:bg-slate-900 overflow-hidden relative">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-5xl">
         
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.7, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-red-100 dark:hover:border-red-900 transition-all duration-300"
+        {/* Main Section Heading with Flourished Calligraphy */}
+        <SectionHeading>{t('skills.title') || (language === 'id' ? 'Keahlian & Kemampuan' : 'Skills & Expertise')}</SectionHeading>
+
+        <div className="space-y-16 sm:space-y-20 -mt-6">
+          
+          {/* ── Group 1: Frameworks & Languages ── */}
+          <div>
+            <motion.h3 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg sm:text-xl md:text-2xl font-medium text-slate-700 dark:text-slate-300 text-center mb-8 tracking-tight"
             >
-              <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-6 flex items-center gap-2">
-                <span className="w-8 h-px bg-red-200 dark:bg-red-800"></span>
-                {category.title}
-              </h3>
-              
-              <div className="grid grid-cols-2 gap-3">
-                {category.skills.map((skill) => (
-                  <SkillBadge key={skill.name} skill={skill} />
-                ))}
-              </div>
-            </motion.div>
-          ))}
+              {language === 'id' ? 'Framework & Bahasa Pemrograman' : 'Frameworks & Languages'}
+            </motion.h3>
+
+            <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-5 md:gap-6 max-w-4xl mx-auto">
+              {frameworkSkills.map((item, index) => (
+                <SquircleTile key={item.name} item={item} index={index} />
+              ))}
+            </div>
+          </div>
+
+          {/* ── Group 2: Tools ── */}
+          <div>
+            <motion.h3 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg sm:text-xl md:text-2xl font-medium text-slate-700 dark:text-slate-300 text-center mb-8 tracking-tight"
+            >
+              {language === 'id' ? 'Alat & Ekosistem' : 'Tools'}
+            </motion.h3>
+
+            <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-5 md:gap-6 max-w-4xl mx-auto">
+              {toolSkills.map((item, index) => (
+                <SquircleTile key={item.name} item={item} index={index} />
+              ))}
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
   );

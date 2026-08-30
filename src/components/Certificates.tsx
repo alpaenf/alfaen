@@ -17,7 +17,7 @@ const stackOffsets = [
 ];
 
 export default function Certificates() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const goNext = () => setActiveIndex(i => (i + 1) % certificates.length);
@@ -137,7 +137,7 @@ export default function Certificates() {
                   href={`/certificates/${certificates[activeIndex].slug}`}
                   className="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-700 dark:text-slate-200 hover:text-red-600 dark:hover:text-red-400 px-4 py-2 rounded-full text-sm font-medium transition-colors border border-slate-200 dark:border-slate-700"
                 >
-                  Lihat detail
+                  {language === 'id' ? 'Lihat detail' : 'View detail'}
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </motion.div>

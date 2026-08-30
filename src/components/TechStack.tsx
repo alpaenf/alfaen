@@ -1,5 +1,5 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import SectionHeading from './SectionHeading';
 
 export default function TechStack() {
@@ -30,7 +30,7 @@ export default function TechStack() {
     }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -41,7 +41,7 @@ export default function TechStack() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -51,7 +51,7 @@ export default function TechStack() {
   };
 
   return (
-    <section id="tech-stack" className="py-24 md:py-32 bg-white overflow-hidden">
+    <section id="tech-stack" className="py-24 md:py-32 bg-white dark:bg-slate-900 overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
         <SectionHeading title="Tools & Technologies" />
         
@@ -66,9 +66,9 @@ export default function TechStack() {
             <motion.div
               key={category.name}
               variants={itemVariants}
-              className="bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-2xl p-6 hover:border-red-600/30 transition-all duration-300 hover:shadow-lg hover:shadow-red-600/5"
+              className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/80 dark:to-slate-900/80 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-6 hover:border-red-600/30 transition-all duration-300 hover:shadow-lg hover:shadow-red-600/5"
             >
-              <h3 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 bg-red-600 rounded-full"></span>
                 {category.name}
               </h3>
@@ -81,7 +81,7 @@ export default function TechStack() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: idx * 0.05 }}
                     viewport={{ once: true }}
-                    className="px-3 py-1 bg-white border border-slate-300 rounded-full text-xs font-medium text-slate-700 hover:border-red-600 hover:text-red-600 transition-colors duration-200"
+                    className="px-3 py-1 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-full text-xs font-medium text-slate-700 dark:text-slate-200 hover:border-red-600 hover:text-red-600 dark:hover:border-red-500 dark:hover:text-red-400 transition-colors duration-200"
                   >
                     {tool}
                   </motion.span>
@@ -97,10 +97,10 @@ export default function TechStack() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-16 p-8 bg-gradient-to-r from-red-600/5 via-red-600/10 to-red-600/5 border border-red-600/20 rounded-2xl"
+          className="mt-16 p-8 bg-gradient-to-r from-red-600/5 via-red-600/10 to-red-600/5 dark:from-red-600/10 dark:via-red-600/15 dark:to-red-600/10 border border-red-600/20 dark:border-red-600/30 rounded-2xl"
         >
-          <p className="text-center text-slate-700 font-light">
-            <span className="font-semibold text-red-600">20+ Technologies</span> across frontend development, ensuring modern, performant, and scalable solutions for every project.
+          <p className="text-center text-slate-700 dark:text-slate-300 font-light">
+            <span className="font-semibold text-red-600 dark:text-red-400">20+ Technologies</span> across frontend development, ensuring modern, performant, and scalable solutions for every project.
           </p>
         </motion.div>
       </div>

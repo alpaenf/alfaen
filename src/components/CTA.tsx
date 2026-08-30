@@ -1,10 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
 import ArrowRight from './icons/ArrowRight';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function CTA() {
+  const { language, t } = useLanguage();
+
   return (
-    <section className="py-24 md:py-32 bg-white overflow-hidden relative">
+    <section className="py-24 md:py-32 bg-white dark:bg-slate-900 overflow-hidden relative">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-grid-slate-100/[0.04] bg-[size:40px_40px]"></div>
@@ -18,12 +21,16 @@ export default function CTA() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
-            Ready to start something <span className="text-red-600">amazing?</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
+            {language === 'id' ? 'Siap memulai sesuatu yang' : 'Ready to start something'}{' '}
+            <span className="text-red-600">{language === 'id' ? 'luar biasa?' : 'amazing?'}</span>
           </h2>
           
-          <p className="text-xl text-slate-600 mb-12 font-light leading-relaxed">
-            I'm always open to new opportunities and interesting projects. Let's connect and create something remarkable together.
+          <p className="text-xl text-slate-600 dark:text-slate-300 mb-12 font-light leading-relaxed">
+            {language === 'id'
+              ? 'Saya selalu sangat terbuka untuk setiap diskusi baru dan ide proyek yang unik. Mari terhubung dan bangun sesuatu yang berkesan bersama.'
+              : "I'm always open to new opportunities and interesting projects. Let's connect and create something remarkable together."
+            }
           </p>
 
           <motion.div
@@ -37,16 +44,16 @@ export default function CTA() {
               href="#contact"
               className="group inline-flex items-center gap-2 bg-red-600 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:bg-red-700 hover:scale-105 hover:shadow-lg hover:shadow-red-600/30 active:scale-95"
             >
-              Start a Project
+              {language === 'id' ? 'Mulai Proyek' : 'Start a Project'}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </a>
             
             <a
-              href="/resume.pdf"
-              download
-              className="inline-flex items-center gap-2 bg-slate-100 text-slate-800 border border-slate-200 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:border-red-600 hover:text-red-600 hover:scale-105 active:scale-95"
+              href="/CV MUKHAMMAD ALFAEN FADILLAH.pdf"
+              download="CV MUKHAMMAD ALFAEN FADILLAH.pdf"
+              className="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-full font-medium transition-all duration-300 hover:border-red-600 hover:text-red-600 hover:scale-105 active:scale-95"
             >
-              Download Resume
+              {language === 'id' ? 'Unduh Resume' : 'Download Resume'}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -59,9 +66,11 @@ export default function CTA() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             viewport={{ once: true }}
-            className="mt-16 pt-12 border-t border-slate-200"
+            className="mt-16 pt-12 border-t border-slate-200 dark:border-slate-800"
           >
-            <p className="text-slate-500 text-sm mb-6">Or reach out on social media</p>
+            <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
+              {language === 'id' ? 'Atau hubungi via media sosial' : 'Or reach out on social media'}
+            </p>
             <div className="flex items-center justify-center gap-6">
               {[
                 { name: 'GitHub', url: '#' },
@@ -74,7 +83,7 @@ export default function CTA() {
                   href={link.url}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-red-600 hover:text-white transition-colors duration-300"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-red-600 hover:text-white transition-colors duration-300"
                   title={link.name}
                 >
                   {link.name === 'GitHub' && (
