@@ -6,6 +6,7 @@ import ScrollProgress from '@/components/ScrollProgress';
 import CustomCursor from '@/components/CustomCursor';
 import TerminalMode from '@/components/TerminalMode';
 import BackgroundPattern from '@/components/BackgroundPattern';
+import SplashScreen from '@/components/SplashScreen';
 import { LanguageProvider } from "@/context/LanguageContext";
 
 const poppins = Poppins({
@@ -48,6 +49,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen selection:bg-red-100 dark:selection:bg-red-900/40 selection:text-red-900 dark:selection:text-red-100 overflow-x-hidden transition-colors duration-500 ease-in-out">
         <LanguageProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <SplashScreen />
             <BackgroundPattern />
             <ScrollProgress />
             <CustomCursor />
