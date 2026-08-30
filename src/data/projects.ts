@@ -27,7 +27,7 @@ export const projects: Project[] = [
     demoLink: 'https://aiclipper-sable.vercel.app',
     repoLink: 'https://github.com/alpaenf/aiclipper',
     accent: 'from-purple-500 to-indigo-600',
-    image: null,
+    image: '/projects/aiclipper.png',
   },
   {
     slug: 'tumbasna',
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     demoLink: 'https://tumbasna.vercel.app',
     repoLink: 'https://github.com/alpaenf/tumbasnaa',
     accent: 'from-amber-500 to-red-600',
-    image: null,
+    image: '/projects/tumbasna.png',
   },
   {
     slug: 'kp-spams',
@@ -52,10 +52,10 @@ export const projects: Project[] = [
     longDescription: 'A dedicated web system designed for KP-SPAMS Damar Wulan to digitize water meter logging, customer account management, monthly billing invoices, and financial reporting.',
     longDescriptionId: 'Sistem informasi berbasis web yang dirancang untuk digitalisasi pencatatan meteran air, pengelolaan data pelanggan, tagihan bulanan otomatis, dan pelaporan keuangan KP-SPAMS Damar Wulan.',
     tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
-    demoLink: 'https://kp-spams.vercel.app',
+    demoLink: 'https://kp-spamsdammarwulan.com',
     repoLink: 'https://github.com/alpaenf/KP-SPAMS',
     accent: 'from-cyan-500 to-blue-600',
-    image: null,
+    image: '/projects/kp-spams.png',
   },
   {
     slug: 'flova',
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     demoLink: 'https://flova-pi.vercel.app',
     repoLink: 'https://github.com/alpaenf/flova',
     accent: 'from-rose-500 to-pink-600',
-    image: null,
+    image: '/projects/flova.png',
   },
   {
     slug: 'bumdes-ciwuni',
@@ -97,7 +97,7 @@ export const projects: Project[] = [
     demoLink: 'https://techsoeumkm.vercel.app',
     repoLink: 'https://github.com/alpaenf/techsoeumkm',
     accent: 'from-blue-500 to-indigo-600',
-    image: null,
+    image: '/projects/techsoeumkm.png',
   },
   {
     slug: 'filzy',
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     demoLink: 'https://filzy.vercel.app',
     repoLink: 'https://github.com/alpaenf/Filzy',
     accent: 'from-violet-500 to-purple-600',
-    image: null,
+    image: '/projects/filzy.png',
   },
   {
     slug: 'fadcv',
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     demoLink: 'https://fad-cv.vercel.app',
     repoLink: 'https://github.com/alpaenf/FadCV',
     accent: 'from-sky-500 to-blue-500',
-    image: null,
+    image: '/projects/fadcv.png',
   },
   {
     slug: 'maris',
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     demoLink: 'https://uangku-drab.vercel.app',
     repoLink: 'https://github.com/alpaenf/uangku',
     accent: 'from-emerald-500 to-green-600',
-    image: null,
+    image: '/projects/uangku.png',
   },
   {
     slug: 'kreusakkrusuk',
@@ -181,7 +181,7 @@ export const projects: Project[] = [
     demoLink: 'https://kreusakkrusuk.vercel.app',
     repoLink: 'https://github.com/alpaenf/Kreusakkrusuk',
     accent: 'from-orange-500 to-red-500',
-    image: null,
+    image: '/projects/kreusakkrusuk.png',
   },
   {
     slug: 'akademik-system',
