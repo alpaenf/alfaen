@@ -20,13 +20,12 @@ import {
 import { certificates, Certificate } from '../data/certificates';
 import { useLanguage } from '../context/LanguageContext';
 
-// Rotasi dan translasi offset dinamis agar kartu di belakang terlihat menonjol dan offside
+// Rotasi dan translasi offset halus agar tumpukan kartu terlihat rapi & elegan
 const stackOffsets = [
-  { rotate: 0,   x: 0,    y: 0,   scale: 1 },
-  { rotate: -8,  x: -36,  y: -12, scale: 0.94 },
-  { rotate: 7,   x: 34,   y: -22, scale: 0.88 },
-  { rotate: -13, x: -60,  y: -34, scale: 0.82 },
-  { rotate: 12,  x: 56,   y: -42, scale: 0.76 },
+  { rotate: 0,    x: 0,   y: 0,   scale: 1 },
+  { rotate: -2.5, x: -4,  y: -8,  scale: 0.96 },
+  { rotate: 2,    x: 4,   y: -16, scale: 0.92 },
+  { rotate: -1,   x: -2,  y: -24, scale: 0.88 },
 ];
 
 export default function Certificates() {
